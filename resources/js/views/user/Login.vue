@@ -1,11 +1,11 @@
 <template>
-    <div class="w-96 mx-auto">
+    <div className="w-96 mx-auto">
         <div>
             <input
                 v-model="email"
                 type="email"
                 placeholder="email"
-                class="w-96 p-1 mb-2 border border-inherit rounded-lg"
+                className="w-96 p-1 mb-2 border border-inherit rounded-lg"
             />
         </div>
         <div>
@@ -13,7 +13,7 @@
                 v-model="password"
                 type="password"
                 placeholder="password"
-                class="w-96 p-1 mb-2 border border-inherit rounded-lg"
+                className="w-96 p-1 mb-2 border border-inherit rounded-lg"
             />
         </div>
         <div>
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import { getCookie } from "../../utils/cookies.js";
+
 export default {
     name: "Login",
 
@@ -40,16 +42,16 @@ export default {
 
     methods: {
         login() {
-            axios.get("/sanctum/csrf-cookie").then((response) => {
+            axios.get("/sanctum/csrf-cookie").then(() => {
                 axios
                     .post("/login", {
                         email: this.email,
                         password: this.password,
                     })
-                    .then((r) => {
+                    .then(() => {
                         localStorage.setItem(
                             "x_xsrf_token",
-                            r.config.headers["X-XSRF-TOKEN"],
+                            getCookie("XSRF-TOKEN"),
                         );
                         this.$router.push({ name: "user.personal" });
                     })
