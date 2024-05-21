@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { getCookie } from "../../utils/cookies.js";
+import CookiesService from "../../utils/cookies.service.js";
 
 export default {
     name: "Login",
@@ -51,7 +51,7 @@ export default {
                     .then(() => {
                         localStorage.setItem(
                             "x_xsrf_token",
-                            getCookie("XSRF-TOKEN"),
+                            CookiesService.getCookie("XSRF-TOKEN"),
                         );
                         this.$router.push({ name: "user.personal" });
                     })

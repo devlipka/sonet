@@ -38,9 +38,9 @@ router.beforeEach((to, from, next) => {
         })
         .catch((e) => {
             if (e.response.status === 401) {
-                localStorage.key("x_xsrf_token")
-                    ? localStorage.removeItem("x_xsrf_token")
-                    : "";
+                if (localStorage.getItem("x_xsrf_token") !== null) {
+                    localStorage.removeItem("x_xsrf_token");
+                }
             }
         });
 
